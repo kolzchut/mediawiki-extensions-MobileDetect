@@ -1,0 +1,13 @@
+{
+    "name": "mediawiki/mobile-detect",
+        "type": "mediawiki-extension",
+        "description": "MobileDetect is used to detect mobile devices. It uses whatever's at hand: a pre-set X-UA-DEVICE header, Apache Mobile Filter, and finally serbanghita's PHP Mobile Detect.",
+        "homepage": "http://www.mediawiki.org/wiki/Extension:MobileDetect",
+        "license" : "GPL-2.0+",
+
+        "require": {
+            "composer/installers" : "1.*,>=1.0.1",
+			"mobiledetect/mobiledetectlib" : "2.*, >=2.8"
+        }
+}
+
