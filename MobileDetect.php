@@ -13,16 +13,20 @@ $wgExtensionMessagesFiles['MobileDetect'] = __DIR__ . '/MobileDetect.i18n.php';
 $wgMessagesDirs['MobileDetect'] = __DIR__ . '/i18n';
 
 $wgAutoloadClasses['MobileDetect'] = __DIR__ . '/MobileDetect.body.php';
+$wgAutoloadClasses['MobileDetectHooks'] = __DIR__ . '/MobileDetect.hooks.php';
 
-$wgHooks['ParserFirstCallInit'][] = 'MobileDetect::onParserFirstCallInit';
-$wgHooks['PageRenderingHash'][] = 'MobileDetect::onPageRenderingHash';
+$wgHooks['ParserFirstCallInit'][] = 'MobileDetectHooks::onParserFirstCallInit';
+$wgHooks['PageRenderingHash'][] = 'MobileDetectHooks::onPageRenderingHash';
+$wgHooks['BeforePageDisplay'][] = 'MobileDetectHooks::onBeforePageDisplay';
+$wgHooks['RequestContextCreateSkin'][] = 'MobileDetectHooks::onRequestContextCreateSkin';
+
 
 
 // Configuration
-// @TODO make this actually work
+$wgMobileDetectSkin = null; // Set a skin for mobile, e.g. 'SkinVector' for Vector
+
+// @TODO make $wgMobileDetectTabletIsMobile actually work
 $wgMobileDetectTabletIsMobile = false;
-// @TODO make this actually work - simplest way, just set skin according to detection
-$wgMobileDetectSkin = null;
 
 
 // Backwards compatibility

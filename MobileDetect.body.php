@@ -2,22 +2,8 @@
 
 class MobileDetect {
 
+	/** @var boolean $isMobile Describes whether reader is on a mobile device */
 	private static $isMobile;
-
-	public static function onPageRenderingHash( &$confstr, User $user, $optionsUsed ) {
-		if ( self::isMobile() ) {
-			$confstr .= "!mobile";
-		}
-
-		return true;
-	}
-
-	public static function onParserFirstCallInit( Parser &$parser ) {
-		$parser->setHook( 'nomobile', 'MobileDetect::nomobile' );
-		$parser->setHook( 'mobileonly', 'MobileDetect::mobileonly' );
-
-		return true;
-	}
 
 	public static function nomobile( $input, array $args, Parser $parser, PPFrame $frame ) {
 		if ( self::isMobile() ) {
@@ -41,6 +27,9 @@ class MobileDetect {
 		}
 		// Check for existance of the X-UA-DEVICE header ( Somebody already did the work for us)
 		$request = RequestContext::getMain();
+		if ( $request->getRequest() === null ) {
+			throw new MWException( "Error: no context or request! you can't use ". __METHOD__ . " here." );
+		}
 		$deviceHeader = $request->getRequest()->getHeader( 'X-UA-DEVICE');
 		if ( $deviceHeader ) {
 			self::$isMobile = ( $deviceHeader === 'mobile' );
@@ -60,6 +49,16 @@ class MobileDetect {
 		return self::$isMobile;
 	}
 
+	/**
+	 * Check for mobile device when using Apache Mobile Filter (AMF)
+	 *
+	 * IF AMF is enabled, make sure we use it to detect mobile devices.
+	 * Tablets are currently served desktop site.
+	 *
+	 * AMF docs: http://wiki.apachemobilefilter.org/
+	 *
+	 * @return bool
+	 */
 	public function getAMF() {
 		global $wgMobileDetectTabletIsMobile;
 
