@@ -1,0 +1,41 @@
+{
+	"name": "MobileDetect",
+	"version": "2.1a",
+	"author": [
+		"Matthew Tran",
+		"Luis Felipe Schenone",
+		"Dror S. [FFS]"
+	],
+	"url": "http://www.mediawiki.org/wiki/Extension:MobileDetect",
+	"descriptionmsg": "mobiledetect-desc",
+	"license-name": "GPL-2.0+",
+	"type": "parserhook",
+	"MessagesDirs": {
+		"MobileDetect": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"MobileDetect": "MobileDetect.body.php",
+		"MobileDetectHooks": "MobileDetect.hooks.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"MobileDetectHooks::onParserFirstCallInit"
+		],
+		"PageRenderingHash": [
+			"MobileDetectHooks::onPageRenderingHash"
+		],
+		"BeforePageDisplay": [
+			"MobileDetectHooks::onBeforePageDisplay"
+		],
+		"RequestContextCreateSkin": [
+			"MobileDetectHooks::onRequestContextCreateSkin"
+		]
+	},
+	"config": {
+		"MobileDetectSkin": null,
+		"MobileDetectTabletIsMobile": false
+	},
+	"manifest_version": 1
+}
