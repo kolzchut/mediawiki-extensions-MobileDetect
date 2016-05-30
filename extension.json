@@ -6,7 +6,7 @@
 		"Luis Felipe Schenone",
 		"Dror S. [FFS]"
 	],
-	"url": "http://www.mediawiki.org/wiki/Extension:MobileDetect",
+	"url": "https://github.com/kolzchut/mediawiki-extensions-MobileDetect",
 	"descriptionmsg": "mobiledetect-desc",
 	"license-name": "GPL-2.0+",
 	"type": "parserhook",
