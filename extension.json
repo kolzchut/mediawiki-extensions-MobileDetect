@@ -31,11 +31,14 @@
 		],
 		"RequestContextCreateSkin": [
 			"MobileDetectHooks::onRequestContextCreateSkin"
+		],
+		"MakeGlobalVariablesScript": [
+			"MobileDetectHooks::onMakeGlobalVariablesScript"
 		]
 	},
 	"config": {
-		"MobileDetectSkin": null,
-		"MobileDetectTabletIsMobile": false
+		"wgMobileDetectSkin": null,
+		"wgMobileDetectTabletIsMobile": false
 	},
 	"manifest_version": 1
 }

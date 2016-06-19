@@ -18,7 +18,6 @@ class MobileDetectHooks {
 	}
 
 
-
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		if ( MobileDetect::isMobile() ) {
 			//$out->setTarget( 'mobile' );
@@ -33,6 +32,7 @@ class MobileDetectHooks {
 	 *
 	 * @param IContextSource $context
 	 * @param Skin $skin
+	 *
 	 * @return bool
 	 */
 	public static function onRequestContextCreateSkin( $context, &$skin ) {
@@ -43,11 +43,30 @@ class MobileDetectHooks {
 		     && class_exists( $wgMobileDetectSkin )
 		) {
 			$skin = new $wgMobileDetectSkin( $context );
+
 			return false;
 		}
 
 		return true;
 
 	}
+
+
+	/**
+	 * MakeGlobalVariablesScript hook handler
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MakeGlobalVariablesScript
+	 *
+	 * @param array $vars
+	 * @param OutputPage $out
+	 *
+	 * @return bool
+	 */
+	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
+		$vars['wgIsMobile'] = MobileDetect::isMobile();
+		$vars['wgMobileDetectDeviceType'] = MobileDetect::getDeviceType();
+
+		return true;
+	}
+
 
 }

@@ -4,6 +4,8 @@ class MobileDetect {
 
 	/** @var boolean $isMobile Describes whether reader is on a mobile device */
 	private static $isMobile;
+	private static $deviceType;
+	private static $deviceOS;
 
 	public static function nomobile( $input, array $args, Parser $parser, PPFrame $frame ) {
 		if ( self::isMobile() ) {
@@ -21,10 +23,24 @@ class MobileDetect {
 		return '';
 	}
 
+	public static function getDeviceType() {
+		if( !isset( self::$deviceType ) ) {
+			// Run isMobile(), which does all the needed tests
+			self::isMobile();
+		}
+
+		return self::$deviceType;
+	}
+
 	public static function isMobile() {
-		if ( self::$isMobile ) {
+		global $wgMobileDetectTabletIsMobile;
+
+		if ( isset( self::$isMobile ) ) {
 			return self::$isMobile;
 		}
+
+		self::$deviceType = 'desktop'; // Assume device to be desktop by default
+
 		// Check for existance of the X-UA-DEVICE header ( Somebody already did the work for us)
 		$request = RequestContext::getMain();
 		if ( $request->getRequest() === null ) {
@@ -33,6 +49,7 @@ class MobileDetect {
 		$deviceHeader = $request->getRequest()->getHeader( 'X-UA-DEVICE');
 		if ( $deviceHeader ) {
 			self::$isMobile = ( $deviceHeader === 'mobile' );
+			self::$deviceType = $deviceHeader;
 		} elseif ( self::getAMF() ) {
 			// If not, check if Apache Mobile Filter is in use
 			self::$isMobile = true;
@@ -41,6 +58,10 @@ class MobileDetect {
 			require_once 'vendor/mobiledetect/mobiledetectlib/Mobile_Detect.php';
 			$detect = new Mobile_Detect;
 			self::$isMobile = $detect->isMobile();
+
+			if( self::$isMobile === true ) {
+				self::$deviceType = $detect->isTablet() ? 'tablet' : 'mobile';
+			}
 		}
 
 		//header( 'X-UA-DEVICE: ' . self::$isMobile ? 'mobile' : 'desktop' );
@@ -66,6 +87,13 @@ class MobileDetect {
 		if ( !$wgMobileDetectTabletIsMobile && $amf ) {
 			$amf &= $_SERVER['AMF_DEVICE_IS_TABLET'] === 'false';
 		}
+
+		if( $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true' ) {
+			self::$deviceType = 'mobile';
+		} elseif( $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
+			self::$deviceType = 'tablet';
+		}
+
 		return $amf;
 	}
 
