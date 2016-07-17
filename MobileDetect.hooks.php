@@ -54,12 +54,12 @@ class MobileDetectHooks {
 
 	/**
 	 * MakeGlobalVariablesScript hook handler
+	 * For values that depend on the current page, user or request state.
+	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MakeGlobalVariablesScript
-	 *
-	 * @param array $vars
-	 * @param OutputPage $out
-	 *
-	 * @return bool
+	 * @param &$vars array Variables to be added into the output
+	 * @param $out OutputPage instance calling the hook
+	 * @return bool true in all cases
 	 */
 	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
 		$vars['wgIsMobile'] = MobileDetect::isMobile();
