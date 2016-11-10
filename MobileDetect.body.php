@@ -24,7 +24,7 @@ class MobileDetect {
 	}
 
 	public static function getDeviceType() {
-		if( !isset( self::$deviceType ) ) {
+		if ( !isset( self::$deviceType ) ) {
 			// Run isMobile(), which does all the needed tests
 			self::isMobile();
 		}
@@ -46,7 +46,7 @@ class MobileDetect {
 		if ( $request->getRequest() === null ) {
 			throw new MWException( "Error: no context or request! you can't use ". __METHOD__ . " here." );
 		}
-		$deviceHeader = $request->getRequest()->getHeader( 'X-UA-DEVICE');
+		$deviceHeader = $request->getRequest()->getHeader( 'X-UA-DEVICE' );
 		if ( $deviceHeader ) {
 			self::$isMobile = ( $deviceHeader === 'mobile' );
 			self::$deviceType = $deviceHeader;
@@ -54,18 +54,17 @@ class MobileDetect {
 			// If not, check if Apache Mobile Filter is in use
 			self::$isMobile = true;
 		} else {
-			// And finally, try PHP mobile-dedect
-			require_once 'vendor/mobiledetect/mobiledetectlib/Mobile_Detect.php';
+			// And finally, try PHP mobile-detect
 			$detect = new Mobile_Detect;
 			self::$isMobile = $detect->isMobile();
 
-			if( self::$isMobile === true ) {
+			if ( self::$isMobile === true ) {
 				self::$deviceType = $detect->isTablet() ? 'tablet' : 'mobile';
 			}
 		}
 
-		//header( 'X-UA-DEVICE: ' . self::$isMobile ? 'mobile' : 'desktop' );
-		//header( 'Vary: X-UA-DEVICE' );
+		// header( 'X-UA-DEVICE: ' . self::$isMobile ? 'mobile' : 'desktop' );
+		// header( 'Vary: X-UA-DEVICE' );
 
 		return self::$isMobile;
 	}
@@ -88,9 +87,9 @@ class MobileDetect {
 			$amf &= $_SERVER['AMF_DEVICE_IS_TABLET'] === 'false';
 		}
 
-		if( $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true' ) {
+		if ( $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true' ) {
 			self::$deviceType = 'mobile';
-		} elseif( $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
+		} elseif ( $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
 			self::$deviceType = 'tablet';
 		}
 
