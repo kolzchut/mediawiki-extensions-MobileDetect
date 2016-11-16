@@ -79,7 +79,7 @@ class MobileDetect {
 	 *
 	 * @return bool
 	 */
-	public function getAMF() {
+	public static function getAMF() {
 		global $wgMobileDetectTabletIsMobile;
 
 		$amf = isset( $_SERVER['AMF_DEVICE_IS_MOBILE'] ) && $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true';
