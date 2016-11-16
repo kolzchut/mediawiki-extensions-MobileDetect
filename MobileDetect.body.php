@@ -83,13 +83,13 @@ class MobileDetect {
 		global $wgMobileDetectTabletIsMobile;
 
 		$amf = isset( $_SERVER['AMF_DEVICE_IS_MOBILE'] ) && $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true';
-		if ( !$wgMobileDetectTabletIsMobile && $amf ) {
+		if ( !$wgMobileDetectTabletIsMobile && $amf && isset( $_SERVER['AMF_DEVICE_IS_TABLET'] ) ) {
 			$amf &= $_SERVER['AMF_DEVICE_IS_TABLET'] === 'false';
 		}
 
 		if ( $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true' ) {
 			self::$deviceType = 'mobile';
-		} elseif ( $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
+		} elseif ( isset( $_SERVER['AMF_DEVICE_IS_TABLET'] ) && $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
 			self::$deviceType = 'tablet';
 		}
 
