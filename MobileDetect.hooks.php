@@ -31,7 +31,7 @@ class MobileDetectHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/RequestContextCreateSkin
 	 *
 	 * @param IContextSource $context
-	 * @param Skin $skin
+	 * @param Skin|null|string $skin
 	 *
 	 * @return bool
 	 */
@@ -40,10 +40,8 @@ class MobileDetectHooks {
 
 		if ( MobileDetect::isMobile()
 		     && isset( $wgMobileDetectSkin )
-		     && class_exists( $wgMobileDetectSkin )
 		) {
-			$skin = new $wgMobileDetectSkin( $context );
-
+			$skin = Skin::normalizeKey( $wgMobileDetectSkin );
 			return false;
 		}
 
