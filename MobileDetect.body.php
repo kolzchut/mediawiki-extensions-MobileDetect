@@ -77,6 +77,8 @@ class MobileDetect {
 	 *
 	 * AMF docs: http://wiki.apachemobilefilter.org/
 	 *
+	 * This part was forked from Extension:MobileFrontend (MobileContext.php)
+	 *
 	 * @return bool
 	 */
 	public static function getAMF() {
@@ -95,9 +97,6 @@ class MobileDetect {
 
 		return $amf;
 	}
-
-
-
 
 
 }
