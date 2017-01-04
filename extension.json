@@ -37,8 +37,9 @@
 		]
 	},
 	"config": {
-		"wgMobileDetectSkin": null,
-		"wgMobileDetectTabletIsMobile": false
+		"MobileDetectSkin": null,
+		"MobileDetectTabletIsMobile": false,
+		"MobileDetectFilterModules": true
 	},
 	"manifest_version": 1
 }
