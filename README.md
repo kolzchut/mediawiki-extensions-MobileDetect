@@ -20,23 +20,31 @@ This extension detects mobile devices by 3 optional methods, in this order:
 This static function is available anywhere, and returns true when a mobile device is detected.
 
 ### $wgMobileDetectSkin
-Allows setting a different skin for mobile. The current format is SkinX, e.g. 'SkinVector':
+Allows setting a different skin for mobile:
     
-    $wgMobileDetectSkin = 'SkinVector'
+    $wgMobileDetectSkin = 'vector'
 
 ### Parser tags:  ``<nomobile>`` and ``<mobileonly>``
 These tags allow users to control which content is displayed only in mobile browsers, and
 which content is displayed only in desktop browsers.
 
-### ResourceLoader mobile-specific modules
-RL Modules can have a "target" option, with the possible values being "desktop" and "mobile".
+### $wgMobileDetectFilterModules - ResourceLoader mobile-specific modules
+To enable this, set `$wgMobileDetectFilterModules = true;` (false by default)
+
+RL Modules can have a "targets" option, with the possible values being "desktop" and "mobile".
 If not set, "desktop" is asssumed. Otherwise, you can specify either/both, e.g.:
 
     'mediawiki.ui' => array(
     	'targets' => array( 'desktop', 'mobile' ),
     ),
 
-See core's ```Resources.php``` - where this is done for the benefit of Extension:MobileFrontend.
+See core's ```Resources.php``` to see the settings for every ResourceLoader module.
+
+If you set this to true, you __must__ make sure the targets for any module
+you require include 'mobile'. As an example, core's `mediawiki.legacy.shared`
+is not enabled for mobile by default. If you need it to be, you have to do so
+yourself - see the instructions here (we are using the same hook, "BeforePageDisplay"):
+https://www.mediawiki.org/wiki/ResourceLoader/Writing_a_MobileFrontend_friendly_ResourceLoader_module#Enabling_your_existing_modules
 
 ## Planned functionality
 Please see [TODO.md](TODO.md)
