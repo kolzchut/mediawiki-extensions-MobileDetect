@@ -39,7 +39,8 @@
 	"config": {
 		"MobileDetectSkin": null,
 		"MobileDetectTabletIsMobile": false,
-		"MobileDetectFilterModules": false
+		"MobileDetectFilterModules": false,
+		"MobileDetectModuleWhitelist": []
 	},
 	"manifest_version": 1
 }
