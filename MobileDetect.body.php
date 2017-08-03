@@ -35,11 +35,16 @@ class MobileDetect {
 	public static function isMobile() {
 		global $wgMobileDetectTabletIsMobile;
 
+		self::$deviceType = 'desktop'; // Assume device to be desktop by default
+
+		if ( PHP_SAPI === 'cli' ) {
+			self::$isMobile = false;
+		}
+
 		if ( isset( self::$isMobile ) ) {
 			return self::$isMobile;
 		}
 
-		self::$deviceType = 'desktop'; // Assume device to be desktop by default
 
 		// Check for existance of the X-UA-DEVICE header ( Somebody already did the work for us)
 		$request = RequestContext::getMain();
