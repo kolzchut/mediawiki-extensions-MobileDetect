@@ -47,11 +47,11 @@ class MobileDetect {
 
 
 		// Check for existance of the X-UA-DEVICE header ( Somebody already did the work for us)
-		$request = RequestContext::getMain();
-		if ( $request->getRequest() === null ) {
+		$requestContext = RequestContext::getMain();
+		if ( $requestContext->getRequest() === null ) {
 			throw new MWException( "Error: no context or request! you can't use ". __METHOD__ . " here." );
 		}
-		$deviceHeader = $request->getRequest()->getHeader( 'X-UA-DEVICE' );
+		$deviceHeader = $requestContext->getRequest()->getHeader( 'X-UA-DEVICE' );
 		if ( $deviceHeader ) {
 			self::$isMobile = ( $deviceHeader === 'mobile' );
 			self::$deviceType = $deviceHeader;
@@ -94,7 +94,7 @@ class MobileDetect {
 			$amf &= $_SERVER['AMF_DEVICE_IS_TABLET'] === 'false';
 		}
 
-		if ( $_SERVER['AMF_DEVICE_IS_MOBILE'] === 'true' ) {
+		if ( $amf ) {
 			self::$deviceType = 'mobile';
 		} elseif ( isset( $_SERVER['AMF_DEVICE_IS_TABLET'] ) && $_SERVER['AMF_DEVICE_IS_TABLET'] === 'true' ) {
 			self::$deviceType = 'tablet';
