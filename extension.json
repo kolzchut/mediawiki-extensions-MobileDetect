@@ -1,6 +1,6 @@
 {
 	"name": "MobileDetect",
-	"version": "2.1a",
+	"version": "2.2.0",
 	"author": [
 		"Matthew Tran",
 		"Luis Felipe Schenone",
@@ -10,6 +10,9 @@
 	"descriptionmsg": "mobiledetect-desc",
 	"license-name": "GPL-2.0+",
 	"type": "parserhook",
+	"ExtensionMessagesFiles": {
+		"MobileDetectMagic": "MobileDetect.i18n.magic.php"
+	},
 	"MessagesDirs": {
 		"MobileDetect": [
 			"i18n"
@@ -34,6 +37,12 @@
 		],
 		"MakeGlobalVariablesScript": [
 			"MobileDetectHooks::onMakeGlobalVariablesScript"
+		],
+		"MagicWordwgVariableIDs": [
+			"MobileDetectHooks::onMagicWordwgVariableIDs"
+		],
+		"ParserGetVariableValueSwitch": [
+			"MobileDetectHooks::onParserGetVariableValueSwitch"
 		]
 	},
 	"config": {

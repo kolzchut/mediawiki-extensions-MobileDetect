@@ -34,6 +34,21 @@ class MobileDetectHooks {
 		return true;
 	}
 
+	public static function onParserGetVariableValueSwitch(
+		Parser &$parser, &$cache, &$magicWordId, &$ret, &$frame
+	) {
+		if ( $magicWordId === 'ismobile' ) {
+			$ret = $cache['ismobile'] = MobileDetect::isMobile() ? '1' : '0';
+		}
+	}
+
+	/**
+	 * @param array $magicWords
+	 */
+	public static function onMagicWordwgVariableIDs( &$magicWords ) {
+		$magicWords[] = 'ismobile';
+	}
+
 	/**
 	 * BeforePageDisplay hook handler
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay

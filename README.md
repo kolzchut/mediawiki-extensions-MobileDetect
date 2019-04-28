@@ -28,6 +28,14 @@ Allows setting a different skin for mobile:
 These tags allow users to control which content is displayed only in mobile browsers, and
 which content is displayed only in desktop browsers.
 
+### Variable: ``{{isMobile}}``
+This simply returns '1' if true or '0' if not. It is very useful for {{#IFEQ:}}
+statements in the wikitext, e.g.:
+```
+{{#IFEQ:{{isMobile}} | 1 | This is mobile | This is desktop }}
+```
+This is not case sensitive.
+
 ### $wgMobileDetectFilterModules - ResourceLoader mobile-specific modules
 To enable this, set `$wgMobileDetectFilterModules = true;` (false by default)
 
@@ -48,3 +56,20 @@ https://www.mediawiki.org/wiki/ResourceLoader/Writing_a_MobileFrontend_friendly_
 
 ## Planned functionality
 Please see [TODO.md](TODO.md)
+
+## Changelog
+### 2.2.0 (2019-04)
+- New wikitext variable ```{{isMobile}}```
+### 2.1a
+- An experimental fork with multiple detection options
+### 2.1 and before
+- The original extension had no changelog.
+
+
+## TODO
+- Add a config variable to determine if tablets should be considered "mobile" devices or "desktop",
+  and get it to actually work.
+- Add a config variable to add non-mobile core RL modules (such as
+  `mediawiki.legacy.shared`) to mobile automatically. This should be an
+  array of module names, and you probably need to follow this:
+  https://www.mediawiki.org/wiki/ResourceLoader/Writing_a_MobileFrontend_friendly_ResourceLoader_module#Enabling_your_existing_modules
